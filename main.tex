@@ -1,0 +1,292 @@
+\documentclass[11pt,titlepage,openright]{book}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[british]{babel}
+\usepackage{graphicx}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{libertine}
+\renewcommand*\ttdefault{cmtt}
+
+\usepackage[sf]{titlesec}
+\usepackage[square,sort,colon,authoryear]{natbib}
+%\usepackage[export]{adjustbox}
+
+\usepackage{
+  paralist,   % Improved lists 
+  marginnote, % Improved margin notes
+  environ,
+  ragged2e,   % Justified text in the margin notes
+  url,        % For typesetting URLs
+  listings,   % Code formatting
+  hyperref,   % Links in PDF from TOC, refs, etc.
+  lipsum
+}
+\usepackage{changepage}
+\usepackage{float}
+
+\usepackage[twoside,labelfont=sf]{caption}
+
+\captionsetup{justification=raggedright,singlelinecheck=false}
+
+\newcommand\myhrulefill[1]{\leavevmode\leaders\hrule height#1\hfill\kern0pt}
+\DeclareCaptionFormat{FigFormat}{{\color{black}\myhrulefill{0.5pt}}\\#1#2#3}
+\captionsetup[figure]{format=FigFormat}
+\captionsetup[table]{format=FigFormat}
+
+\DeclareCaptionFormat{LstFormat}{\textsf{Listing}~\arabic{chapter}.\arabic{listing}:#2#3}
+\floatstyle{ruled}
+\newfloat{listing}{thp}{lol}
+\floatname{listing}{Listing}
+\captionsetup[listing]{format=LstFormat}
+
+
+\NewEnviron{MarginNote}[1][0mm]{\marginnote{\footnotesize\justifying\BODY}[#1]}
+\newcommand{\Footnote}[2][0mm]{\footnotemark\marginnote{\footnotesize$^{\arabic{footnote})}$~#2}[#1]}
+
+\renewenvironment{figure*}[1][]{%
+  \begin{figure}[#1]%
+    \checkoddpage%
+    \ifoddpage%
+      \begin{adjustwidth}{0cm}{-45mm}%%
+    \else%
+      \begin{adjustwidth}{-45mm}{0cm}%%
+    \fi%
+    }{%
+    \end{adjustwidth}%
+  \end{figure}}
+
+\renewenvironment{table*}[1][]{%
+  \begin{table}[#1]%
+    \checkoddpage%
+    \ifoddpage%
+      \begin{adjustwidth}{0cm}{-45mm}%%
+    \else%
+      \begin{adjustwidth}{-45mm}{0cm}%%
+    \fi%
+    }{%
+    \end{adjustwidth}%
+  \end{table}}
+
+\renewenvironment{listing*}[1][]{%
+  \begin{listing}[#1]%
+    \checkoddpage%
+    \ifoddpage%
+      \begin{adjustwidth}{0cm}{-45mm}%%
+    \else%
+      \begin{adjustwidth}{-45mm}{0cm}%%
+    \fi%
+    }{%
+    \end{adjustwidth}%
+  \end{listing}}
+
+%% == Code =======================================================
+\lstnewenvironment{Code}[1][style=std]{\lstset{#1}}{}
+\lstnewenvironment{Code_Numbered}[1][style=std,numbers=left]{\lstset{#1}}{}
+
+\renewcommand{\c}[1]{\lstinline[style=std]@#1@}
+
+\lstdefinestyle{std}{
+  language=java,
+  basicstyle=\small\sf\color{black},
+  keywordstyle=\small\sf\bfseries,
+  numberstyle=\footnotesize\sf\color{black},
+  commentstyle=\small\color{black}\it,
+  aboveskip=1ex,
+  belowskip=1ex,
+  tabsize=2,
+  columns=fullflexible,
+  xleftmargin=1ex,
+  resetmargins=true,
+  showstringspaces=false,
+  morecomment=[l]{//},
+  morecomment=[l]{--},
+  morecomment=[s]{/*}{*/},
+  escapeinside=@@,
+  morekeywords={Frobies},
+  moredelim=[is][\textit]{___}{___},
+  moredelim=[is][\textbf]{__*}{*__}
+}
+
+\usepackage[activate={true,nocompatibility},final,tracking=true,kerning=true,spacing=true,factor=1100,stretch=10,shrink=10]{microtype}
+\usepackage[paper=a4paper,text={13cm,24cm},marginparsep=5mm,marginparwidth=45mm,inner=20mm,twoside]{geometry}
+
+\newcommand{\RED}[1]{\textcolor{red}{#1}}
+\newcommand{\ie}{\emph{i.e.,}}
+\newcommand{\eg}{\emph{e.g.,}}
+\newcommand{\etal}{\emph{et~al.}}
+
+\renewcommand{\bfdefault}{b}
+\clearpage{\pagestyle{empty}\cleardoublepage}
+
+\synctex=1
+\pagestyle{plain}
+
+\begin{document}
+\frontmatter
+\title{Thesis Template}
+\author{Tobias Wrigstad}
+\date{\today}
+
+\maketitle
+
+\vspace*{3cm}
+\section*{Abstract}
+
+\RED{Replace this with the actual abstract. Obviously.}
+Suspendisse luctus leo et porta mattis. In semper, nisi et
+suscipit iaculis, leo urna laoreet lacus, ut laoreet lorem tellus
+eget dui. Vestibulum eu auctor nisi. Morbi pharetra euismod velit
+ac mattis. Maecenas tempor vitae augue ut aliquam. Nunc auctor,
+nibh at imperdiet finibus, ex leo semper lacus, ac vehicula quam
+nisl condimentum leo.
+
+
+\tableofcontents
+\listoffigures
+\listoftables
+
+\mainmatter
+
+\chapter{Introduction}
+
+\lipsum[1]
+
+\begin{MarginNote}[3cm]
+  \lipsum[2]
+
+  \RED{Use linebreaks\-to\-insert\-hyphens\-where\-needed\-in the margin.}
+\end{MarginNote}
+
+Footnotes\Footnote[-1cm]{Like this one. Note the manual vertical offset in the source code.} will go into the margin. They should be used sparingly.
+
+\lipsum[3]
+
+\section{Purpose and Goals}
+
+\lipsum[4-6]
+
+\section{Thesis Outline}
+
+\lipsum[7]
+
+\begin{figure}[t]
+  \begin{center}
+    \vspace*{1em}
+    \verb+\includegraphics[width=0.9\linewidth]{image.pdf}+
+    \vspace*{1em}
+  \end{center}
+  \caption{This is a figure, it will be placed top-most of a page (if possible).}
+  \label{fig:example-1}
+\end{figure}
+
+\begin{figure*}[t]
+  \begin{center}
+    \vspace*{1em}
+    \verb+\includegraphics[width=0.9\linewidth]{image.pdf}+
+    \vspace*{1em}
+  \end{center}
+\caption{This is a wider figure, it too will be placed top-most of a page (if possible).}
+  \label{fig:example-1}
+\end{figure*}
+
+
+\begin{table}[b]
+  \caption{This is a table, it will be placed at the bottom of a
+    page (if possible). Note that captions for tables are placed
+    \emph{above} the table.}
+  \begin{center}
+    \begin{tabular}{|l|l|l|}
+      \hline
+      $A$ & $B$ & $C$ \\
+      \hline
+      $A$ & \multicolumn{2}{|c|}{$B$ \& $C$} \\
+      \hline
+      $A$ & $B$ & $C$ \\
+      \hline
+    \end{tabular}
+  \end{center}
+  
+  \label{tab:example-1}
+\end{table}
+
+\chapter{Background}
+
+This chapter typically contains a discussion of the related work.
+BibTeX is a great way to manage bibliography information. If you
+use Emacs, tools like RefTeX will help you insert references into
+your code. Given that we are not constrained for space, we can use
+citations that look like this: \citep{Acm_Curriculum_2013,
+  CWE_193}. To give the text a bit better flow, you can sometimes
+work them into the text. Using numbered references is allowed but
+it will cause them to be much like Dijkstra's
+\citeyearpar{Dijkstra_1968} dreaded GOTO's.
+
+\chapter{Methodology}
+\lipsum[1] Code \c{int inline = ++x;} looks like so:
+
+\begin{Code}
+public class HelloWorld<T> extends Something<T> {
+  public static void main(String[] args) {
+    System.out.println("Hello, world!");
+  }
+}
+\end{Code}
+
+You can also get it with line numbers:
+
+\begin{Code_Numbered}
+public class HelloWorld<T> extends Something<T> {
+  public static void main(String[] args) {
+    System.out.println("Hello, world!"); @\label{code:hello}@
+  }
+}
+\end{Code_Numbered}
+
+
+You can refer to lines like this: \verb+Line \ref{code:hello}+ (gives you Line \ref{code:hello}, see source for more details).
+
+Verbatim text is set in a monospaced typewriter font:
+
+\begin{verbatim}
+----------,
+          |           ASCII art!
+          '--> (*)
+\end{verbatim}
+
+\lipsum[2-4]
+
+\begin{listing*}[t]
+\begin{Code_Numbered}
+public class HelloWorld<T> extends Something<T> {
+  public static void main(String[] args) {
+    System.out.println("Hello, world!"); @\label{code:hello}@
+  }
+}
+\end{Code_Numbered}
+\caption{If you like, you can have code listings inside a \c{listing} float.}
+\end{listing*}
+
+
+
+\chapter{Design}
+\lipsum
+
+\chapter{Implementation}
+\lipsum
+
+\chapter{Evaluation}
+\lipsum
+
+\chapter{Conclusions}
+\lipsum
+
+\bibliographystyle{plainnat}
+\bibliography{main}
+
+\end{document}
+
+%%% Local Variables: ***
+%%% mode: latex ***
+%%% TeX-master: "main.tex"  ***
+%%% ispell-local-dictionary: "british"  ***
+%%% End: ***
