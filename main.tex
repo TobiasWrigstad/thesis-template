@@ -21,6 +21,7 @@
   hyperref,   % Links in PDF from TOC, refs, etc.
   lipsum
 }
+\usepackage{cleveref}
 \usepackage{changepage}
 \usepackage{float}
 
@@ -35,10 +36,9 @@
 
 \DeclareCaptionFormat{LstFormat}{\textsf{Listing}~\arabic{chapter}.\arabic{listing}:#2#3}
 \floatstyle{ruled}
-\newfloat{listing}{thp}{lol}
+\newfloat{listing}{thp}{lol}[chapter]
 \floatname{listing}{Listing}
 \captionsetup[listing]{format=LstFormat}
-
 
 \NewEnviron{MarginNote}[1][0mm]{\marginnote{\footnotesize\justifying\BODY}[#1]}
 \newcommand{\Footnote}[2][0mm]{\footnotemark\marginnote{\footnotesize$^{\arabic{footnote})}$~#2}[#1]}
@@ -104,7 +104,8 @@
   escapeinside=@@,
   morekeywords={Frobies},
   moredelim=[is][\textit]{___}{___},
-  moredelim=[is][\textbf]{__*}{*__}
+  moredelim=[is][\textbf]{__*}{*__},
+  numberbychapter=true
 }
 
 \usepackage[activate={true,nocompatibility},final,tracking=true,kerning=true,spacing=true,factor=1100,stretch=10,shrink=10]{microtype}
@@ -255,6 +256,11 @@ Verbatim text is set in a monospaced typewriter font:
 
 \lipsum[2-4]
 
+\begin{table}[!h]
+  \caption{bar}
+  \label{tab:bar}
+\end{table}
+
 \begin{listing*}[t]
 \begin{Code_Numbered}
 public class HelloWorld<T> extends Something<T> {
@@ -264,9 +270,11 @@ public class HelloWorld<T> extends Something<T> {
 }
 \end{Code_Numbered}
 \caption{If you like, you can have code listings inside a \c{listing} float.}
+\label{lst:foo}
 \end{listing*}
 
-
+Referencing Listing~\ref{lst:foo}.
+Use can also use cleveref: \cref{lst:foo} and \Cref{lst:foo}.
 
 \chapter{Design}
 \lipsum
