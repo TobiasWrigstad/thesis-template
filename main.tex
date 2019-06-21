@@ -12,7 +12,6 @@
 %\usepackage[export]{adjustbox}
 
 \usepackage{
-  enumitem,   % Improved lists 
   marginnote, % Improved margin notes
   environ,
   ragged2e,   % Justified text in the margin notes
@@ -21,12 +20,15 @@
   hyperref,   % Links in PDF from TOC, refs, etc.
   lipsum,
   booktabs,
+  changepage,
+  float,
   dingbat
 }
-\usepackage{cleveref}
-\usepackage{changepage}
-\usepackage{float}
 
+\usepackage[capitalise]{cleveref}
+\Crefname{section}{\S}{\S\S}
+
+\usepackage{enumitem}   % Improved lists 
 % \setlist{noitemsep} % To make all lists compact
 \setlist[itemize]{itemsep=0pt}
 \setlist[itemize,1]{label=--}
@@ -182,9 +184,14 @@ Footnotes\Footnote[-1cm]{Like this one. Note the manual vertical offset in the s
   \end{itemize}
 \end{itemize}
 
+You can use \texttt{cleveref} to cross-reference in your text.
+For chapters, it will produce something like this: \Cref{cha:background}.
+For sections, it will produce something like this: \Cref{sec:purpose-goals}.
+
 \lipsum[3]
 
 \section{Purpose and Goals}
+\label{sec:purpose-goals}
 
 \lipsum[4-6]
 
@@ -230,6 +237,7 @@ Note that you can resume lists.
 And reference back to individual list items, \eg{}~\cref{lst:two}.
 
 \section{Thesis Outline}
+\label{sec:thesis-outline}
 
 \lipsum[7]
 
@@ -273,6 +281,7 @@ And reference back to individual list items, \eg{}~\cref{lst:two}.
 \end{table}
 
 \chapter{Background}
+\label{cha:background}
 
 This chapter typically contains a discussion of the related work.
 BibTeX is a great way to manage bibliography information. If you
@@ -306,7 +315,7 @@ public class HelloWorld<T> extends Something<T> {
 \end{Code_Numbered}
 
 
-You can refer to lines like this: \verb+\Cref{code:hello}+ (gives you \Cref{code:hello}, see source for more details).
+You can refer to lines like this: \verb+\cref{code:hello}+ (gives you \cref{code:hello}, see source for more details).
 
 Verbatim text is set in a monospaced typewriter font:
 
@@ -336,7 +345,7 @@ public class HelloWorld<T> extends Something<T> {
 \end{listing*}
 
 Referencing Listing~\ref{lst:foo}.
-Probably better to use cleveref: \cref{lst:foo} and \Cref{lst:foo}.
+Probably better to use cleveref: \cref{lst:foo}.
 
 \chapter{Design}
 \lipsum
