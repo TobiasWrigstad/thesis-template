@@ -12,18 +12,26 @@
 %\usepackage[export]{adjustbox}
 
 \usepackage{
-  paralist,   % Improved lists 
+  enumitem,   % Improved lists 
   marginnote, % Improved margin notes
   environ,
   ragged2e,   % Justified text in the margin notes
   url,        % For typesetting URLs
   listings,   % Code formatting
   hyperref,   % Links in PDF from TOC, refs, etc.
-  lipsum
+  lipsum,
+  booktabs,
+  dingbat
 }
 \usepackage{cleveref}
 \usepackage{changepage}
 \usepackage{float}
+
+% \setlist{noitemsep} % To make all lists compact
+\setlist[itemize]{itemsep=0pt}
+\setlist[itemize,1]{label=--}
+\setlist[itemize,2]{label=\ensuremath{\triangleright}}
+\setlist[itemize,3]{label=\RED{AVOID}}
 
 \usepackage[twoside,labelfont=sf]{caption}
 
@@ -116,9 +124,14 @@
 \newcommand{\eg}{\emph{e.g.,}}
 \newcommand{\etal}{\emph{et~al.}}
 
+\usepackage{pifont}
+\newcommand{\Yes}{\ding{51}}
+\newcommand{\No}{\ding{55}}
+
 \renewcommand{\bfdefault}{b}
 \clearpage{\pagestyle{empty}\cleardoublepage}
 
+%% You can remove this line if you compile with --synctex=1 (see Makefile)
 \synctex=1
 \pagestyle{plain}
 
@@ -160,11 +173,61 @@ nisl condimentum leo.
 
 Footnotes\Footnote[-1cm]{Like this one. Note the manual vertical offset in the source code.} will go into the margin. They should be used sparingly.
 
+\begin{itemize}[label=\leftpointright]
+\item The \texttt{enumitem} package will help you customise lists
+\item Like weird labels like this
+  \begin{itemize}
+  \item Try \texttt{texdoc enumitem} on your command line if you
+    have a local \LaTeX{} installation (and have your mind blown)
+  \end{itemize}
+\end{itemize}
+
 \lipsum[3]
 
 \section{Purpose and Goals}
 
 \lipsum[4-6]
+
+\begin{itemize}
+\item FWIW, this is my favourite list label for unordered lists. I
+  find bullets too ``clumsy.'' If you do not like it, you can
+  override the default settings (see the source).
+\item But your thesis is your thesis. And, ofc, don't use words
+  like FWIW, ofc, and don't in a thesis text.
+
+  \begin{itemize}
+  \item You can nest lists if you want.
+
+    \begin{itemize}
+    \item But do not go overboard.
+    \end{itemize}
+
+  \end{itemize}
+  
+\end{itemize}
+
+This is how you typeset descriptions:
+
+\begin{description}
+\item[Beach Boys] \lipsum[1]
+\item[The Ronettes] \lipsum[2]
+\end{description}
+
+Enumerated lists:
+
+\begin{enumerate}
+\item One
+\item Two
+\end{enumerate}
+
+Note that you can resume lists.
+
+\begin{enumerate}[resume]
+\item One
+\item Two \label{lst:two}
+\end{enumerate}
+
+And reference back to individual list items, \eg{}~\cref{lst:two}.
 
 \section{Thesis Outline}
 
@@ -186,7 +249,7 @@ Footnotes\Footnote[-1cm]{Like this one. Note the manual vertical offset in the s
     \verb+\includegraphics[width=0.9\linewidth]{image.pdf}+
     \vspace*{1em}
   \end{center}
-\caption{This is a wider figure, it too will be placed top-most of a page (if possible).}
+\caption[Check the source to see how to customise a figure's LoF entry.]{This is a wider figure, it too will be placed top-most of a page (if possible).}
   \label{fig:example-1}
 \end{figure*}
 
@@ -196,14 +259,13 @@ Footnotes\Footnote[-1cm]{Like this one. Note the manual vertical offset in the s
     page (if possible). Note that captions for tables are placed
     \emph{above} the table.}
   \begin{center}
-    \begin{tabular}{|l|l|l|}
-      \hline
+    \begin{tabular}{lll}
+      \toprule
       $A$ & $B$ & $C$ \\
-      \hline
-      $A$ & \multicolumn{2}{|c|}{$B$ \& $C$} \\
-      \hline
-      $A$ & $B$ & $C$ \\
-      \hline
+      \midrule
+      $A$ & \multicolumn{2}{c}{$B-C$} \\
+      $A$ & \Yes{} & \No{} \\
+      \bottomrule
     \end{tabular}
   \end{center}
   
@@ -244,7 +306,7 @@ public class HelloWorld<T> extends Something<T> {
 \end{Code_Numbered}
 
 
-You can refer to lines like this: \verb+Line \ref{code:hello}+ (gives you Line \ref{code:hello}, see source for more details).
+You can refer to lines like this: \verb+\Cref{code:hello}+ (gives you \Cref{code:hello}, see source for more details).
 
 Verbatim text is set in a monospaced typewriter font:
 
@@ -274,7 +336,7 @@ public class HelloWorld<T> extends Something<T> {
 \end{listing*}
 
 Referencing Listing~\ref{lst:foo}.
-Use can also use cleveref: \cref{lst:foo} and \Cref{lst:foo}.
+Probably better to use cleveref: \cref{lst:foo} and \Cref{lst:foo}.
 
 \chapter{Design}
 \lipsum

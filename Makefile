@@ -1,14 +1,14 @@
 main:
-	pdflatex main
+	pdflatex --synctex=1 main
 
 bib:
 	bibtex main
 
 cycle:
-	pdflatex main
+	pdflatex --synctex=1 main
 	bibtex main
-	pdflatex main
-	pdflatex main
+	pdflatex --synctex=1 main
+	pdflatex --synctex=1 main
 
 clean:
 	rm -f *.aux *.lof *.log *.lot *.pdf *.synctex.gz *.toc
@@ -22,5 +22,5 @@ diff.tex:
 	latexdiff prev.tex main.tex > diff.tex
 
 diff: diff.tex
-	pdflatex diff.tex
+	pdflatex --synctex=1 diff.tex
 
