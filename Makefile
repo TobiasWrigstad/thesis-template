@@ -1,17 +1,18 @@
 main:
-	pdflatex --synctex=1 main
+	latexmk -pdf -synctex=1 main
 
 bib:
 	bibtex main
 
 cycle:
+	# Note: better to use latexmk which figures out exactly what to run and how many times
 	pdflatex --synctex=1 main
 	bibtex main
 	pdflatex --synctex=1 main
 	pdflatex --synctex=1 main
 
 clean:
-	rm -f *.aux *.lof *.log *.lot *.pdf *.synctex.gz *.toc
+	rm -f *.aux *.lof *.log *.lot *.pdf *.synctex.gz *.toc *.fdb_latexmk
 
 diff.tex:
 	@echo "This command assumes you have checked out the previous version"
