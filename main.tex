@@ -4,8 +4,8 @@
 \usepackage[british]{babel}
 \usepackage{graphicx}
 \usepackage[dvipsnames]{xcolor}
-\usepackage{libertine}
-\renewcommand*\ttdefault{cmtt}
+\usepackage[sb]{libertine}
+\usepackage[scale=0.9]{inconsolata}
 
 \usepackage[sf]{titlesec}
 \usepackage[square,sort,colon,authoryear]{natbib}
@@ -24,6 +24,8 @@
   float,
   dingbat
 }
+\renewcommand{\bfdefault}{bx}
+\DeclareTextFontCommand\textsb{\libertineSB}
 
 \usepackage[capitalise]{cleveref}
 \Crefname{section}{\S}{\S\S}
@@ -34,6 +36,8 @@
 \setlist[itemize,1]{label=--}
 \setlist[itemize,2]{label=\ensuremath{\triangleright}}
 \setlist[itemize,3]{label=\RED{AVOID}}
+% Description lists to use semibold labels
+\setlist[description]{font=\libertineSB}
 
 \usepackage[twoside,labelfont=sf]{caption}
 
@@ -97,8 +101,8 @@
 
 \lstdefinestyle{std}{
   language=java,
-  basicstyle=\small\sf\color{black},
-  keywordstyle=\small\sf\bfseries,
+  basicstyle=\small\tt\color{black},
+  keywordstyle=\small\tt\bfseries,
   numberstyle=\footnotesize\sf\color{black},
   commentstyle=\small\color{black}\it,
   aboveskip=1ex,
@@ -258,7 +262,7 @@ And reference back to individual list items, \eg{}~\cref{lst:two}.
     \vspace*{1em}
   \end{center}
 \caption[Check the source to see how to customise a figure's LoF entry.]{This is a wider figure, it too will be placed top-most of a page (if possible).}
-  \label{fig:example-1}
+  \label{fig:example-2}
 \end{figure*}
 
 
@@ -336,7 +340,7 @@ Verbatim text is set in a monospaced typewriter font:
 \begin{Code_Numbered}
 public class HelloWorld<T> extends Something<T> {
   public static void main(String[] args) {
-    System.out.println("Hello, world!"); @\label{code:hello}@
+    System.out.println("Hello, world!"); @\label{code:hello:2}@
   }
 }
 \end{Code_Numbered}
